@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#10131c">
+<title>SS Tycoon</title>
+<style>
+:root{--bg:#10131c;--panel:#191e2b;--panel2:#202738;--text:#f4f6fb;--muted:#a6afc2;--gold:#f4c96b;--green:#45d49a;--red:#ff727d;--blue:#80aaff;--border:#30394d}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#1a2234 0,#10131c 50%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{padding:22px 16px 16px;background:#111622;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:10px}.brand h1{font-size:24px;margin:0;letter-spacing:.5px}.brand h1 span{color:var(--gold)}.pill{font-size:12px;border:1px solid #4b5266;border-radius:999px;padding:6px 9px;color:var(--muted)}
+.balancebar{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:12px}.small{font-size:12px;color:var(--muted)}.money{font-size:23px;font-weight:800;color:var(--gold);margin-top:3px}
+nav{display:flex;gap:8px;padding:12px 12px 2px;overflow-x:auto;position:sticky;top:119px;background:#10131c;z-index:4}nav button{white-space:nowrap;background:#1c2332;color:#c7d0e1;border:1px solid var(--border);padding:10px 13px;border-radius:12px;font-weight:700}nav button.active{background:var(--gold);color:#171717;border-color:var(--gold)}
+main{padding:14px;max-width:900px;margin:auto}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{background:linear-gradient(145deg,var(--panel),#171c28);border:1px solid var(--border);border-radius:16px;padding:14px;min-width:0}.card h2,.card h3{margin:0 0 9px}.card h2{font-size:17px}.card h3{font-size:15px}.muted{color:var(--muted)}.stat{font-size:20px;font-weight:800;margin-top:5px}.positive{color:var(--green)}.negative{color:var(--red)}.gold{color:var(--gold)}
+button{font:inherit;cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}.btn{border:0;border-radius:11px;padding:11px 12px;background:var(--gold);color:#171717;font-weight:800;width:100%;margin-top:10px}.btn.secondary{background:#2a3448;color:var(--text);border:1px solid #3b4860}.btn.danger{background:#552a37;color:#ffdce0}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.row + .row{margin-top:10px}.coinname{display:flex;gap:10px;align-items:center;min-width:0}.coinicon{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#2c3549;font-weight:900;color:var(--gold);flex-shrink:0}.coinname strong{display:block}.coinname small{color:var(--muted);display:block;margin-top:3px}.price{text-align:right;font-weight:800}.change{font-size:12px;margin-top:4px}.sectiontitle{font-size:20px;margin:8px 2px 12px}.subnav{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}.subnav button{background:#1b2231;border:1px solid var(--border);color:var(--text);border-radius:10px;padding:8px 10px}.subnav button.active{border-color:var(--gold);color:var(--gold)}input,select{width:100%;padding:12px;border-radius:10px;background:#101622;border:1px solid #39445b;color:var(--text);font-size:16px;margin-top:6px}.field{margin-top:10px}.field label{font-size:12px;color:var(--muted)}.coinrow{padding:12px 0;border-bottom:1px solid var(--border)}.coinrow:last-child{border-bottom:0}.mini-btn{border:1px solid #45516a;background:#283247;color:var(--text);border-radius:9px;padding:8px 11px;font-weight:700}.chartwrap{height:190px;background:#111723;border:1px solid var(--border);border-radius:12px;padding:8px;margin-top:12px}.chartwrap canvas{width:100%;height:100%;display:block}.notice{border:1px solid #4a4560;background:#252239;border-radius:12px;padding:11px;color:#d8d4f3;font-size:13px;line-height:1.45}.event{border-left:3px solid var(--gold);padding:9px 11px;background:#202536;border-radius:0 10px 10px 0;margin-top:8px;font-size:13px;line-height:1.45}.hidden{display:none!important}.asset{padding:13px 0;border-bottom:1px solid var(--border)}.asset:last-child{border-bottom:0}.footer{color:#7e899f;font-size:11px;text-align:center;padding:22px 8px}.toast{position:fixed;bottom:18px;left:14px;right:14px;max-width:500px;margin:auto;background:#f4c96b;color:#171717;padding:13px 15px;border-radius:12px;font-weight:800;box-shadow:0 8px 30px #0008;z-index:20}
+@media(min-width:650px){main{padding:22px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}header{padding-left:max(20px,calc((100vw - 860px)/2));padding-right:max(20px,calc((100vw - 860px)/2))}nav{justify-content:center;top:116px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><h1>SS <span>TYCOON</span></h1><span class="pill">SANAL EKONOMİ</span></div>
+ <div class="balancebar"><div><div class="small">TOPLAM SERVET</div><div class="money" id="totalWealth">₺1.000.000</div></div><div style="text-align:right"><div class="small">KULLANILABİLİR NAKİT</div><strong id="cashTop">₺1.000.000</strong></div></div>
+</header>
+<nav id="nav">
+ <button class="active" data-tab="home">Genel Bakış</button><button data-tab="market">Coin Piyasası</button><button data-tab="portfolio">Portföyüm</button><button data-tab="business">İşletmeler</button><button data-tab="events">Piyasa Haberleri</button>
+</nav>
+<main>
+<section id="home">
+ <div class="grid">
+  <div class="card"><div class="small">TOPLAM KÂR / ZARAR</div><div id="totalPnl" class="stat">₺0</div><div class="small">Yatırımlarının alış maliyetine göre</div></div>
+  <div class="card"><div class="small">YATIRIM DEĞERİ</div><div id="investValue" class="stat">₺0</div><div class="small">Coin portföyünün güncel değeri</div></div>
+  <div class="card"><div class="small">SAATLİK İŞLETME GELİRİ</div><div id="incomeRate" class="stat positive">₺0</div><div class="small">Bu prototip açıkken her saniye birikir</div></div>
+ </div>
+ <h2 class="sectiontitle">Piyasa özeti</h2><div class="card" id="homeCoins"></div>
+ <h2 class="sectiontitle">Son piyasa olayı</h2><div class="card" id="homeEvent"></div>
+ <div class="notice" style="margin-top:12px">Bu oyun içi sanal ekonomidir. Gerçek kripto para alımı, gerçek para yatırma veya gerçek piyasa fiyatları kullanılmaz. Fiyatlar oyun simülasyonudur.</div>
+</section>
+<section id="market" class="hidden">
+ <h2 class="sectiontitle">Coin Piyasası</h2>
+ <div class="notice">Coin fiyatları yaklaşık her 15 saniyede bir değişir. Haberler bazı coinleri etkileyebilir. Alış ve satışlar sanal oyun parasıyla yapılır.</div>
+ <div class="subnav"><button class="active" data-filter="all">Tümü</button><button data-filter="major">Ana coinler</button><button data-filter="alt">Altcoinler</button></div>
+ <div class="card" id="marketList"></div>
+ <div class="card" style="margin-top:12px">
+  <h3 id="tradeTitle">Coin işlemi</h3>
+  <div class="field"><label for="tradeCoin">Coin</label><select id="tradeCoin"></select></div>
+  <div class="field"><label for="tradeAmount">Harcanacak / satılacak tutar (₺)</label><input id="tradeAmount" type="number" min="1" step="1" value="10000" inputmode="decimal"></div>
+  <div class="grid" style="margin-top:8px"><button class="btn" id="buyBtn">Coin satın al</button><button class="btn secondary" id="sellBtn">Coin sat</button></div>
+  <div class="small" style="margin-top:9px">Alış/satış komisyonu: %1. Satış tutarı mevcut coin miktarınla sınırlıdır.</div>
+ </div>
+ <div class="card" style="margin-top:12px"><div class="row"><h3 style="margin:0">Fiyat geçmişi</h3><select id="chartCoin" style="width:auto;max-width:48%;margin:0"></select></div><div class="chartwrap"><canvas id="priceChart" width="700" height="240"></canvas></div><div class="small" id="chartCaption" style="margin-top:8px">Son fiyat hareketleri</div></div>
+</section>
+<section id="portfolio" class="hidden">
+ <h2 class="sectiontitle">Yatırım portföyüm</h2>
+ <div class="grid"><div class="card"><div class="small">ALIŞ MALİYETİ</div><div class="stat" id="costValue">₺0</div></div><div class="card"><div class="small">GÜNCEL DEĞER</div><div class="stat" id="currentValue">₺0</div></div><div class="card"><div class="small">GERÇEKLEŞMEMİŞ K/Z</div><div class="stat" id="unrealPnl">₺0</div></div></div>
+ <div class="card" style="margin-top:12px" id="portfolioList"></div>
+ <button class="btn secondary" id="resetBtn">Oyunu sıfırla</button>
+ <div class="small" style="margin-top:8px">Sıfırlama işlemi bu cihazdaki kayıtlı oyun ilerlemesini siler.</div>
+</section>
+<section id="business" class="hidden">
+ <h2 class="sectiontitle">İşletmeler</h2>
+ <div class="notice">İşletmeler sanal para kazandırır. Gelir bu prototipte sekme açıkken saniyede birikmeye devam eder. Oyundan çıkınca gelir birikmesi henüz eklenmedi.</div>
+ <div class="card" id="businessList" style="margin-top:12px"></div>
+</section>
+<section id="events" class="hidden">
+ <h2 class="sectiontitle">Piyasa haberleri ve olaylar</h2><div class="notice">Oyun içi haberler coin fiyatlarını etkileyen simüle edilmiş olaylardır; gerçek haber veya yatırım tavsiyesi değildir.</div>
+ <div class="card" id="eventList" style="margin-top:12px"></div>
+</section>
+<div class="footer">SS Tycoon • Oyun içi para ve simüle edilmiş fiyatlar • İlerleme bu tarayıcıda saklanır</div>
+</main>
+<div id="toast" class="toast hidden"></div>
+<script>
+(function(){
+"use strict";
+const fmt=n=>"₺"+Math.round(n).toLocaleString("tr-TR");
+const coins=[
+ {id:"BTC",name:"Bitcoin",icon:"₿",price:1250000,group:"major",vol:.035},
+ {id:"ETH",name:"Ethereum",icon:"Ξ",price:68000,group:"major",vol:.045},
+ {id:"SOL",name:"Solana",icon:"S",price:8200,group:"alt",vol:.075},
+ {id:"SSC",name:"SS Coin",icon:"SS",price:125,group:"alt",vol:.10},
+ {id:"ADA",name:"Cardano",icon:"A",price:18,group:"alt",vol:.065}
+];
+const businesses=[
+ {id:"kiosk",name:"Küçük büfe",cost:50000,income:120,desc:"Başlangıç işletmesi"},
+ {id:"carwash",name:"Oto yıkama",cost:180000,income:420,desc:"Düzenli müşteri geliri"},
+ {id:"dealership",name:"Oto galerisi",cost:650000,income:1450,desc:"Araç ticareti işletmesi"},
+ {id:"restaurant",name:"Lüks restoran",cost:1800000,income:4200,desc:"Yüksek masraf, yüksek gelir"},
+ {id:"hotel",name:"Butik otel",cost:6500000,income:15500,desc:"Büyük ölçekli işletme"}
+];
+const eventTemplates=[
+ {title:"Kurumsal ilgi artıyor",desc:"Piyasada kurumsal yatırımcı ilgisi arttı. Ana coinlere olumlu hava yansıdı.",effects:{BTC:.055,ETH:.04}},
+ {title:"Teknoloji ortaklığı haberi",desc:"Yeni bir teknoloji ortaklığı söylentisi altcoin piyasasını hareketlendirdi.",effects:{SOL:.085,SSC:.11}},
+ {title:"Piyasa satış dalgası",desc:"Yatırımcılar kâr realizasyonuna yöneldi. Piyasada kısa süreli satış baskısı oluştu.",effects:{BTC:-.06,ETH:-.075,SOL:-.10,ADA:-.08}},
+ {title:"Ağ güncellemesi başarılı",desc:"Bir ağ güncellemesinin başarılı olduğu haberi ilgili coin için olumlu algı yarattı.",effects:{ETH:.065,ADA:.07}},
+ {title:"Risk iştahı yükseldi",desc:"Piyasada risk iştahı yükseldi; daha oynak varlıklara talep geldi.",effects:{SOL:.09,SSC:.13}},
+ {title:"Düzenleyici belirsizlik",desc:"Düzenleyici belirsizlik haberi piyasalarda temkinli hareketleri artırdı.",effects:{BTC:-.035,ETH:-.04,SSC:-.09}}
+];
+let state;
+const defaultState=()=>({cash:1000000,holdings:{},businesses:{},history:{},events:[],lastEvent:"",lastUpdate:Date.now(),lastIncome:Date.now(),totalRealized:0});
+function load(){try{const x=JSON.parse(localStorage.getItem("ssTycoonEconomyV2"));if(x&&typeof x.cash==="number")return Object.assign(defaultState(),x)}catch(e){}return defaultState()}
+state=load();
+coins.forEach(c=>{if(!state.history[c.id]||!state.history[c.id].length)state.history[c.id]=Array(20).fill(c.price)});
+function save(){try{localStorage.setItem("ssTycoonEconomyV2",JSON.stringify(state))}catch(e){}}
+function holding(id){return state.holdings[id]||{qty:0,cost:0}}
+function totalInvestment(){return coins.reduce((s,c)=>s+holding(c.id).qty*c.price,0)}
+function totalCost(){return coins.reduce((s,c)=>s+holding(c.id).cost,0)}
+function totalPnl(){return totalInvestment()-totalCost()+state.totalRealized}
+function incomeRate(){return businesses.reduce((s,b)=>s+(state.businesses[b.id]||0)*b.income,0)}
+function wealth(){return state.cash+totalInvestment()+businesses.reduce((s,b)=>s+(state.businesses[b.id]||0)*b.cost*.65,0)}
+function showToast(t){const el=document.getElementById("toast");el.textContent=t;el.classList.remove("hidden");clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>el.classList.add("hidden"),2300)}
+function cls(n){return n>=0?"positive":"negative"}
+function signed(n){return (n>=0?"+":"−")+fmt(Math.abs(n))}
+function nav(tab){document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));["home","market","portfolio","business","events"].forEach(id=>document.getElementById(id).classList.toggle("hidden",id!==tab));if(tab==="market")drawChart();render()}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>nav(b.dataset.tab)));
+function render(){document.getElementById("totalWealth").textContent=fmt(wealth());document.getElementById("cashTop").textContent=fmt(state.cash);document.getElementById("totalPnl").textContent=signed(totalPnl());document.getElementById("totalPnl").className="stat "+cls(totalPnl());document.getElementById("investValue").textContent=fmt(totalInvestment());document.getElementById("incomeRate").textContent=fmt(incomeRate()*3600)+"/saat";
+ document.getElementById("homeCoins").innerHTML=coins.slice(0,4).map(c=>coinLine(c,false)).join("");
+ const latest=state.events[0];document.getElementById("homeEvent").innerHTML=latest?`<strong>${latest.title}</strong><p class="muted" style="margin:7px 0">${latest.desc}</p><small class="${cls(latest.impact)}">${latest.impact>=0?"Piyasa etkisi olumlu":"Piyasa etkisi olumsuz"} • ${latest.time}</small>`:"Henüz piyasa olayı yok.";
+ document.getElementById("marketList").innerHTML=coins.map(c=>coinLine(c,true)).join("");
+ const sel=document.getElementById("tradeCoin"),ch=document.getElementById("chartCoin");const old=sel.value||"BTC",oldc=ch.value||"BTC";sel.innerHTML=coins.map(c=>`<option value="${c.id}">${c.id} — ${c.name}</option>`).join("");ch.innerHTML=coins.map(c=>`<option value="${c.id}">${c.id}</option>`).join("");sel.value=old;ch.value=oldc;
+ const pnl=totalPnl();document.getElementById("costValue").textContent=fmt(totalCost());document.getElementById("currentValue").textContent=fmt(totalInvestment());document.getElementById("unrealPnl").textContent=signed(totalInvestment()-totalCost());document.getElementById("unrealPnl").className="stat "+cls(totalInvestment()-totalCost());
+ document.getElementById("portfolioList").innerHTML=coins.filter(c=>holding(c.id).qty>0).map(c=>{const h=holding(c.id),v=h.qty*c.price,p=v-h.cost;return `<div class="asset"><div class="row"><div class="coinname"><div class="coinicon">${c.icon}</div><div><strong>${c.name} (${c.id})</strong><small>${h.qty.toFixed(6)} adet • maliyet ${fmt(h.cost)}</small></div></div><div class="price">${fmt(v)}<div class="change ${cls(p)}">${signed(p)}</div></div></div><div class="small" style="margin-top:7px">Ortalama alış: ${fmt(h.cost/(h.qty||1))} • Güncel: ${fmt(c.price)}</div></div>`}).join("")||'<p class="muted">Henüz coin almadın. Coin Piyasası sekmesinden işlem yapabilirsin.</p>';
+ document.getElementById("businessList").innerHTML=businesses.map(b=>{const owned=state.businesses[b.id]||0;return `<div class="asset"><div class="row"><div><strong>${b.name}</strong><div class="small">${b.desc}</div><div class="small gold">Maliyet ${fmt(b.cost)} • Gelir ${fmt(b.income*3600)}/saat</div><div class="small">Sahip olunan: ${owned}</div></div><button class="mini-btn" onclick="buyBusiness('${b.id}')">Satın al</button></div></div>`}).join("");
+ document.getElementById("eventList").innerHTML=state.events.map(e=>`<div class="event"><strong>${e.title}</strong><div style="margin-top:5px">${e.desc}</div><div class="small" style="margin-top:5px">${e.time} • <span class="${cls(e.impact)}">${e.impact>=0?"Olumlu etki":"Olumsuz etki"}</span></div></div>`).join("")||'<p class="muted">Piyasa haberleri yakında burada görünecek.</p>';
+ if(!document.getElementById("market").classList.contains("hidden"))drawChart();
+}
+function coinLine(c,actions){const h=holding(c.id),v=h.qty*c.price,p=v-h.cost,history=state.history[c.id]||[],prev=history.length>1?history[history.length-2]:c.price,ch=prev?(c.price-prev)/prev*100:0;return `<div class="coinrow"><div class="row"><div class="coinname"><div class="coinicon">${c.icon}</div><div><strong>${c.name} <span class="muted">(${c.id})</span></strong><small>${c.price.toLocaleString("tr-TR",{maximumFractionDigits:2})} ₺ / coin</small></div></div><div class="price"><div class="${cls(ch)}">${ch>=0?"+":""}${ch.toFixed(2)}%</div>${actions?`<small class="muted">Sende: ${h.qty.toFixed(4)}</small>`:""}</div></div>${actions?`<div class="row" style="margin-top:9px"><span class="small">Portföy: ${fmt(v)} <span class="${cls(p)}">(${signed(p)})</span></span><button class="mini-btn" onclick="quickBuy('${c.id}')">Al</button></div>`:""}</div>`}
+window.quickBuy=id=>{document.getElementById("tradeCoin").value=id;document.getElementById("tradeAmount").value="10000";document.getElementById("tradeAmount").focus();document.getElementById("tradeTitle").textContent=id+" işlemi";};
+document.getElementById("buyBtn").addEventListener("click",()=>{const id=document.getElementById("tradeCoin").value,amount=Number(document.getElementById("tradeAmount").value),c=coins.find(x=>x.id===id);if(!Number.isFinite(amount)||amount<=0)return showToast("Geçerli bir tutar gir.");const spend=amount;if(spend>state.cash)return showToast("Yeterli nakdin yok.");const net=spend*.99,qty=net/c.price,h=holding(id);h.qty+=qty;h.cost+=spend;state.holdings[id]=h;state.cash-=spend;save();render();showToast(`${qty.toFixed(6)} ${id} satın alındı.`)});
+document.getElementById("sellBtn").addEventListener("click",()=>{const id=document.getElementById("tradeCoin").value,amount=Number(document.getElementById("tradeAmount").value),c=coins.find(x=>x.id===id),h=holding(id);if(!Number.isFinite(amount)||amount<=0)return showToast("Geçerli bir tutar gir.");const wanted=amount/c.price;if(h.qty<=0)return showToast("Bu coinden portföyünde yok.");const qty=Math.min(wanted,h.qty),gross=qty*c.price,net=gross*.99,avg=h.cost/(h.qty||1),cost=avg*qty,profit=net-cost;h.qty-=qty;h.cost=Math.max(0,h.cost-cost);state.cash+=net;state.totalRealized+=profit;state.holdings[id]=h;save();render();showToast(`${fmt(net)} nakde çevrildi • gerçekleşen ${signed(profit)}`)});
+window.buyBusiness=id=>{const b=businesses.find(x=>x.id===id);if(state.cash<b.cost)return showToast("Bu işletme için nakdin yetmiyor.");state.cash-=b.cost;state.businesses[id]=(state.businesses[id]||0)+1;save();render();showToast(b.name+" satın alındı!")};
+document.getElementById("chartCoin").addEventListener("change",drawChart);
+document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("active",x===b));const f=b.dataset.filter;document.getElementById("marketList").innerHTML=coins.filter(c=>f==="all"||c.group===f).map(c=>coinLine(c,true)).join("")}));
+function drawChart(){const canvas=document.getElementById("priceChart");if(!canvas||document.getElementById("market").classList.contains("hidden"))return;const ctx=canvas.getContext("2d"),dpr=window.devicePixelRatio||1,w=canvas.clientWidth||600,h=canvas.clientHeight||180;canvas.width=w*dpr;canvas.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);const id=document.getElementById("chartCoin").value||"BTC",c=coins.find(x=>x.id===id),arr=state.history[id]||[c.price],min=Math.min(...arr)*.98,max=Math.max(...arr)*1.02,range=max-min||1;ctx.strokeStyle="#30394d";ctx.lineWidth=1;for(let i=1;i<4;i++){const y=h*i/4;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}ctx.strokeStyle="#f4c96b";ctx.lineWidth=2.5;ctx.beginPath();arr.forEach((v,i)=>{const x=arr.length<=1?0:i*(w-8)/(arr.length-1)+4,y=h-8-(v-min)/range*(h-16);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});ctx.stroke();document.getElementById("chartCaption").textContent=`${c.name} • Son ${arr.length} fiyat kaydı • Güncel: ${fmt(c.price)}`}
+function addEvent(){const e=eventTemplates[Math.floor(Math.random()*eventTemplates.length)];let total=0;coins.forEach(c=>{const effect=e.effects[c.id]||0;if(effect){c.price=Math.max(.01,c.price*(1+effect));total+=effect}});const impact=total;state.events.unshift({title:e.title,desc:e.desc,impact,time:new Date().toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"})});state.events=state.events.slice(0,30);state.lastEvent=e.title;coins.forEach(c=>{state.history[c.id].push(c.price);state.history[c.id]=state.history[c.id].slice(-40)});save();render();showToast("Piyasa olayı: "+e.title)}
+function tick(){const now=Date.now(),dt=Math.min((now-state.lastIncome)/1000,5);if(dt>0){state.cash+=incomeRate()*dt;state.lastIncome=now}if(now-state.lastUpdate>15000){coins.forEach(c=>{const drift=(Math.random()-.49)*c.vol;c.price=Math.max(.01,c.price*(1+drift));state.history[c.id].push(c.price);state.history[c.id]=state.history[c.id].slice(-40)});state.lastUpdate=now;save();render()}if(now-state.lastEventTime>60000||!state.lastEventTime){state.lastEventTime=now;if(Math.random()<.18)addEvent()}render();save()}
+document.getElementById("resetBtn").addEventListener("click",()=>{if(confirm("Tüm oyun ilerlemesi silinsin mi?")){localStorage.removeItem("ssTycoonEconomyV2");location.reload()}});
+const originalSave=save;function safeSave(){state.lastEventTime=state.lastEventTime||Date.now();originalSave()}
+window.addEventListener("resize",drawChart);
+render();setInterval(tick,1000);save();
+})();
+</script>
+</body>
+</html>
